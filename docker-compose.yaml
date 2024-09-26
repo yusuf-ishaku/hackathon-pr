@@ -13,11 +13,6 @@ services:
       context: .
     environment:
       NODE_ENV: production
-      DATABASE: hackathon-project
-      DATABASE_HOST: allyhoop.postgres.database.azure.com
-      DATABASE_PORT: 5432
-      DATABASE_USER: cypher
-      DATABASE_PASSWORD: 'Polstice12890#'
     ports:
       - 3000:3000
 
