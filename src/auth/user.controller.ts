@@ -34,10 +34,10 @@ export class UserController {
         password: hash,
         email: body.email,
       });
-      return {
+      return response.status(201).json({
         message: 'User created',
-        data: { ...data, password: 'hidden' },
-      };
+        data: { username: data.username, id: data.id, email: data.email, password: '' },
+      })
     } catch (error: unknown) {
       next(error);
     }

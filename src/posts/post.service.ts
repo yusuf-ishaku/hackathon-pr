@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { Posts } from './Post.model';
+import { Posts } from './post.model';
 import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
