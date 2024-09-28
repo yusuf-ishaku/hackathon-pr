@@ -12,11 +12,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env: 
+        DATABASE_HOST: ${{ vars.DATABASE_HOST }}
+        DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+        DATABASE_USER: ${{ vars.DATABASE_USER }}
+        DATABASE: ${{ vars.DATABASE }} 
+        DATABASE_PASSWORD: ${{ vars.DATABASE_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Node.js version
+        
+        
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
