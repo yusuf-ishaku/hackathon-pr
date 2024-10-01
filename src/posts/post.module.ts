@@ -6,9 +6,10 @@ import { Posts } from './post.model';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { MediaService } from 'src/images/images.service';
 import { Media } from 'src/images/images.model';
+import { User } from 'src/auth/user.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Posts, Media])],
+  imports: [SequelizeModule.forFeature([Posts, Media, User])],
   controllers: [PostsController],
   providers: [PostsService, MediaService],
 })
