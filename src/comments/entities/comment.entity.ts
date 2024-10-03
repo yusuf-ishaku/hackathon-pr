@@ -1,35 +1,29 @@
 /* eslint-disable prettier/prettier */
 import {
-  BelongsTo,
-  Column,
-  ForeignKey,
-  Model,
   Table,
+  ForeignKey,
+  Column,
+  HasMany,
+  BelongsTo,
+  Model,
 } from 'sequelize-typescript';
 import { User } from 'src/auth/user.model';
-import { Comment } from 'src/comments/entities/comment.entity';
+import { Media } from 'src/images/images.model';
 import { Posts } from 'src/posts/post.model';
-
 @Table
-export class Media extends Model {
+export class Comment extends Model {
   @Column
-  src: string;
-
+  text: string;
   @ForeignKey(() => User)
   @Column
   user_id: number;
-
   @BelongsTo(() => User)
   user: User;
-
+  @HasMany(() => Media)
+  media: Media[];
   @ForeignKey(() => Posts)
   @Column
   post_id: number;
   @BelongsTo(() => Posts)
   post: Posts;
-
-  @ForeignKey(() => Comment)
-  comment_id: number;
-  @BelongsTo(() => Comment)
-  comment: Comment;
 }

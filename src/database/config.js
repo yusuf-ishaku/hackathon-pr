@@ -25,10 +25,9 @@
 module.exports = {
   development: {
     dialect: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: '',
-    database: 'postgres',
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE,
+    host: process.env.DATABASE_HOST,
+    username: process.env.DATABASE_USER,
   },
 };

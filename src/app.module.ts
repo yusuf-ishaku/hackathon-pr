@@ -9,6 +9,8 @@ import { User } from './auth/user.model';
 import { Posts } from './posts/post.model';
 import { Media } from './images/images.model';
 import { PostsModule } from './posts/post.module';
+import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/entities/comment.entity';
 @Module({
   imports: [
     UserModule,
@@ -24,11 +26,14 @@ import { PostsModule } from './posts/post.module';
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE,
-        models: [User, Posts, Media],
+        models: [User, Posts, Media, 
+          Comment
+        ],
         autoLoadModels: true,
         synchronize: true,
       }),
     }),
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
