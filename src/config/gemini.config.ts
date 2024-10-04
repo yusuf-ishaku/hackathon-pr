@@ -6,17 +6,17 @@ class AiAgent {
     private APIKEY: string;
     private fileManager: GoogleAIFileManager;
     private GenAi: GoogleGenerativeAI;
-    private model = "gemini-1.5-flash";
+    private model;
     private agent;
     constructor () {
      this.APIKEY = process.env.GOOGLE_AI_KEY
      this.fileManager = new GoogleAIFileManager(this.APIKEY);
      this.GenAi = new GoogleGenerativeAI(this.APIKEY);
-     this.agent = this.GenAi.getGenerativeModel({model: this.model});
+     this.agent = this.GenAi.getGenerativeModel({model: "gemini-1.5-flash"});
     }
     getTextResponse = async (prompt: string) => {
         const response = await this.agent.generateContent(prompt);
-        return response;
+        return response.response.text();
     };
     getResponseToImagePrompt = async (prompt: string, image: Media) => {
         // const uploadResult = await this.fileManager.uploadFile(

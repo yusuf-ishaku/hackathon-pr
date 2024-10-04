@@ -16,24 +16,24 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [
-      UserModule,
-      PostsModule,
-      ConfigModule.forRoot({
-        isGlobal: true,
-      }),
-      SequelizeModule.forRootAsync({
-        useFactory: () => ({
-        dialect: 'postgres',
-        host: process.env.DATABASE_HOST,
-        port: process.env.DATABASE_PORT as unknown as number,
-        username: process.env.DATABASE_USER,
-        password: process.env.DATABASE_PASSWORD,
-        database: process.env.DATABASE,
-        models: [User, Posts, Media],
-        autoLoadModels: true,
-        synchronize: true,
+        UserModule,
+        PostsModule,
+        ConfigModule.forRoot({
+          isGlobal: true,
         }),
-      }),
+        SequelizeModule.forRootAsync({
+          useFactory: () => ({
+            dialect: 'postgres',
+            host: process.env.DATABASE_HOST,
+            port: process.env.DATABASE_PORT as unknown as number,
+            username: process.env.DATABASE_USER,
+            password: process.env.DATABASE_PASSWORD,
+            database: process.env.DATABASE,
+            models: [User, Posts, Media],
+            autoLoadModels: true,
+            synchronize: true,
+          }),
+        }),
       ],
       controllers: [AppController],
       providers: [AppService],
