@@ -42,4 +42,11 @@ export class MediaService {
       },
     });
   }
+  async getByComment(id: string): Promise<Media[]> {
+    return this.userModel.findAll({
+      where: {
+        comment_id: id
+      }
+    })
+  }
 }

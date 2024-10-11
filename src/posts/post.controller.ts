@@ -51,14 +51,12 @@ export class PostsController {
   @Get()
   async getAllPosts(): Promise<any> {
     const posts = await this.postService.findAll();
-    const media = await this.mediaService.findAll();
     // Extract data values from posts
     const postsData = posts.map((post) => post.get({ plain: true }));
     // Optionally, you can also extract data values from media if needed
-    const mediaData = media.map((m) => m.get({ plain: true }));
     const postsWithMediaAndUser = await Promise.all(
       postsData.map(async (post) => {
-        const postMedia = mediaData.filter((m) => m.post_id === post.id);
+        const postMedia = (await this.mediaService.getByPost(post.id));
         const user = (await this.userService.findById(`${post.user_id}`)).get({ plain: true });
         return { ...post, media: postMedia, user: {...user, password: ''} };
       })

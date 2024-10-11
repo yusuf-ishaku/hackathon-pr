@@ -15,7 +15,7 @@ export class CommentsService {
     return this.commentModel.create(createCommentDto);
   }
 
-  findAll() {
+  findAll(): Promise<Comment[]> {
     return this.commentModel.findAll();
   }
 
@@ -23,7 +23,7 @@ export class CommentsService {
     return `This action returns a #${id} comment`;
   }
 
-  async findByPostId(id: number | string) {
+  async findByPostId(id: number | string): Promise<Comment[]> {
     return this.commentModel.findAll({
       where: {
         post_id: id,
