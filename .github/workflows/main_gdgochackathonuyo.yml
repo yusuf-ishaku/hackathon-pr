@@ -1,0 +1,39 @@
+name: Deploy NestJS App to Azure
+
+on:
+  push:
+    branches:
+      - main  # You can specify the branch that triggers the deployment
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # Ensure the Node version matches your app's requirements
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the NestJS app
+      run: npm run build
+
+    - name: Archive production artifacts
+      run: zip -r build.zip ./
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'chefshackathon'  # Azure App Service name
+        slot-name: 'production'  # Default is production slot
+        publish-profile: <publishData><publishProfile profileName="chefshackathon - Web Deploy" publishMethod="MSDeploy" publishUrl="chefshackathon-h9gadsdsbqbbeqa0.scm.canadacentral-01.azurewebsites.net:443" msdeploySite="chefshackathon" userName="$chefshackathon" userPWD="k0CcqMHRPE0esTkkPdYZd6lCJj1swvmNRv6pHcH6Gwr3XdtRqHZqdcwTPzi0" destinationAppUrl="https://chefshackathon-h9gadsdsbqbbeqa0.canadacentral-01.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="chefshackathon - FTP" publishMethod="FTP" publishUrl="ftps://waws-prod-yt1-055.ftp.azurewebsites.windows.net/site/wwwroot" ftpPassiveMode="True" userName="chefshackathon\$chefshackathon" userPWD="k0CcqMHRPE0esTkkPdYZd6lCJj1swvmNRv6pHcH6Gwr3XdtRqHZqdcwTPzi0" destinationAppUrl="https://chefshackathon-h9gadsdsbqbbeqa0.canadacentral-01.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="chefshackathon - Zip Deploy" publishMethod="ZipDeploy" publishUrl="chefshackathon-h9gadsdsbqbbeqa0.scm.canadacentral-01.azurewebsites.net:443" userName="$chefshackathon" userPWD="k0CcqMHRPE0esTkkPdYZd6lCJj1swvmNRv6pHcH6Gwr3XdtRqHZqdcwTPzi0" destinationAppUrl="https://chefshackathon-h9gadsdsbqbbeqa0.canadacentral-01.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile></publishData>  # Publish profile secret
+        package: build.zip
+
+    - name: Cleanup build artifacts
+      run: rm -f build.zip
